@@ -1,0 +1,58 @@
+#container{
+  margin: 0 auto;
+  padding: 10;
+  height: 500px;
+  width: 500px;
+  display: grid;
+  grid-template-areas:
+  "h1"
+  "h3"
+  "timer"
+  "control";
+}
+h1{
+  grid-area:h1;
+  text-align: center;
+  color: #00bcd4;
+
+}
+
+
+blockquote{
+  grid-area: h3;
+  text-align: center;
+  color: #00bcd4;
+  font-style: italic;
+
+}
+#timer {
+  grid-area: timer;
+  background-color: #00bcd4;
+  border-radius: 50%;
+  height: 500px;
+  width: 500px;
+
+
+  }
+#countdown{
+  width: 350px;
+  height: 160px;
+  margin: auto;
+  color: #fff;
+  font-size: 100px;
+  text-align: center;
+  line-height: 400px;
+
+}
+#controlpanel{
+  background-color: #c1c1c1;
+  border-radius: 15px;
+  background-color: #f5f5f5;
+
+  margin: 20px auto;
+  padding: 20px;
+}
+
+ul{
+  list-style: none;
+}
