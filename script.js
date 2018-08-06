@@ -1,41 +1,50 @@
 //Global variables
-let counter;
-const display = document.getElementById("countdown");
 
+//Grabs display element
+const display = document.getElementById("countdown");
+//display default time
+display.textContent = 25+ ":"+0+0;
+
+let counter;
+let timeLeft;
+let timer = false;
 
 //Model -----------------------------------
 function countdown(time){
-  //clear any existing timers
-  //clearInterval(counter);
+  //clears any existing timers
+  timer = true;
+  clearInterval(counter);
 //  debugger;
   let now = Date.now();
   let then = now + (time * 1000);
-  //why does it not display 70!?
+
   displayTimeLeft(time);
-
+  console.log(timer);
   counter = setInterval(() => {
-    let timeLeft = Math.round((then-Date.now())/1000);
-
-
+    timeLeft = Math.round((then-Date.now())/1000);
     displayTimeLeft(timeLeft);
-
     if(timeLeft<=0){
-      let pause = countdown(300)
-        if(timeLeft<=0){
-          clearInterval(counter);
-          return;
+      clearInterval(counter);
+      timer=false;
+      console.log(timer);
+      return;
+      }
+    }, 1000)
+}
+//Pomodoro = 25 min timer + 5 min timer
+// when work timer is finished, execute pause timer !
+// find out if timer is finished
+function pomodoro(work, pause) {
+  work = countdown(work);
+  if(timer==false){
+    countdown(pause);
 
-        }
+  }
 
-    }
-
-  }, 1000)
-
+  console.log(timeLeft);
 }
 
-function pause() {
 
-}
 
 //View-------------------------------
 
@@ -49,8 +58,7 @@ function displayTimeLeft(timeLeft){
 
 //Controller ------------------------------
 let play = document.getElementById("play");
-play.addEventListener("click", ()=>countdown(1500));
-
+play.addEventListener("click", ()=>pomodoro(5, 15));
 
 //let stop = document.getElementById("stop");
 //stop.addEventListener("click", ()=> console.log("stop"));
@@ -59,4 +67,4 @@ play.addEventListener("click", ()=>countdown(1500));
 //pause.addEventListener("click", ()=> console.log("pause"));
 
 let redo = document.getElementById("redo");
-redo.addEventListener("click", ()=> countdown(50));
+redo.addEventListener("click", ()=> pomodoro(5, 5));
