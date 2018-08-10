@@ -4,39 +4,38 @@ let session = document.getElementById("session");
 let counter;
 let timeLeft;
 
+//pomodoro
+function pomodoro(){
+  countdown(5, "Work!!", ()=>countdown(3,"Pause!", ()=>0))
+}
+
 //Model -----------------------------------
-function countdown(time){
+function countdown(time, message, next){
   //clears any existing timers
   clearInterval(counter);
   //debugger;
   let now = Date.now();
   let then = now + (time * 1000);
   displayTimeLeft(time);
+  session.textContent = message;
 
   counter = setInterval(() => {
-    session.textContent ="Work!"
     timeLeft = Math.round((then-Date.now())/1000);
-    //displays -1:0-1 after 0
     displayTimeLeft(timeLeft);
-    //hmmm timeLeft<0 = not working, <=0 = works!
-  // never enters this loop
-    if(timeLeft<=0){
-      console.log("pause!!");
-      clearInterval(counter);
-      session.textContent ="Pause!"
-      countdown(10);
-      timeLeft = Math.round((then-Date.now())/1000);
-      displayTimeLeft(timeLeft);
 
-      if(timeLeft<0){
-        clearInterval(counter);
-        return;
-      }
+    if(timeLeft<=0){
+      clearInterval(counter);
+      next();
+      return;
     }
   }, 1000)
 }
 
-
+function reset(){
+  clearInterval(counter);
+  display.textContent = "0:00";
+  session.textContent = "Do it well, do it now.";
+}
 
 
 //View-------------------------------
@@ -45,28 +44,20 @@ function countdown(time){
 display.textContent = 25+ ":"+0+0;
 
 // display session: "encouragement", work or pause
-session.textContent = "Just do it!";
+session.textContent = "Do it well, do it now.";
 function displayTimeLeft(timeLeft){
   let min = Math.floor(timeLeft/60);
   let sec = Math.floor(timeLeft%60);
   // displays time nicely
   const info = min + ":" + (sec<10 ? "0"+sec :""+sec);
   display.textContent = info;
-  session.textContent ="Work!"
   console.log(info);
   document.title = info;
 }
 
 //Controller ------------------------------
 let play = document.getElementById("play");
-play.addEventListener("click", ()=>countdown(5));
-
-
-//let stop = document.getElementById("stop");
-//stop.addEventListener("click", ()=> console.log("stop"));
-
-//let pause = document.getElementById("pause");
-//pause.addEventListener("click", ()=> console.log("pause"));
+play.addEventListener("click", ()=>pomodoro());
 
 let redo = document.getElementById("redo");
-redo.addEventListener("click", ()=> countdown(5));
+redo.addEventListener("click", ()=> reset());

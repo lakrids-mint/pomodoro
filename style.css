@@ -1,16 +1,16 @@
 #container{
   margin: 0 auto;
   padding: 10;
-  height: 500px;
-  width: 500px;
+
   display: grid;
   grid-template-areas:
   "h1"
-  "h3"
   "timer"
+  "h3"
   "control";
 }
 h1{
+  margin-top: 1em;
   grid-area:h1;
   text-align: center;
   color: #00bcd4;
@@ -18,20 +18,21 @@ h1{
 }
 
 
-blockquote{
+#session{
   grid-area: h3;
   text-align: center;
   color: #00bcd4;
   font-style: italic;
+  font-size: 30px;
 
 }
 #timer {
   grid-area: timer;
   background-color: #00bcd4;
   border-radius: 50%;
-  height: 500px;
-  width: 500px;
-
+  height: 400px;
+  width: 400px;
+  margin: 0 auto;
 
   }
 #countdown{
