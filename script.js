@@ -1,5 +1,4 @@
 //Global variables
-// display element
 const display = document.getElementById("countdown");
 let session = document.getElementById("session");
 let counter;
@@ -17,22 +16,24 @@ function countdown(time){
   counter = setInterval(() => {
     session.textContent ="Work!"
     timeLeft = Math.round((then-Date.now())/1000);
+    //displays -1:0-1 after 0
     displayTimeLeft(timeLeft);
-
-    if(timeLeft<0){
+    //hmmm timeLeft<0 = not working, <=0 = works!
+  // never enters this loop
+    if(timeLeft<=0){
+      console.log("pause!!");
       clearInterval(counter);
       session.textContent ="Pause!"
-      countdown(12);
+      countdown(10);
       timeLeft = Math.round((then-Date.now())/1000);
-
       displayTimeLeft(timeLeft);
 
       if(timeLeft<0){
         clearInterval(counter);
         return;
       }
-      }
-    }, 1000)
+    }
+  }, 1000)
 }
 
 
@@ -40,13 +41,15 @@ function countdown(time){
 
 //View-------------------------------
 
-//display default time = 25 min
+//displays default time = 25 min
 display.textContent = 25+ ":"+0+0;
-// display session: work or pause
+
+// display session: "encouragement", work or pause
 session.textContent = "Just do it!";
 function displayTimeLeft(timeLeft){
   let min = Math.floor(timeLeft/60);
   let sec = Math.floor(timeLeft%60);
+  // displays time nicely
   const info = min + ":" + (sec<10 ? "0"+sec :""+sec);
   display.textContent = info;
   session.textContent ="Work!"
