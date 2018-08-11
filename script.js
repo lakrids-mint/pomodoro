@@ -3,10 +3,14 @@ const display = document.getElementById("countdown");
 let session = document.getElementById("session");
 let counter;
 let timeLeft;
+let start = true;
 
 //pomodoro
 function pomodoro(){
-  countdown(5, "Work!!", ()=>countdown(3,"Pause!", ()=>0))
+  displayStartStop();
+  countdown(5, "Work!!", ()=>countdown(3,"Pause!", ()=>
+    session.textContent = "Well done!"));
+  displayStartStop();
 }
 
 //Model -----------------------------------
@@ -31,11 +35,6 @@ function countdown(time, message, next){
   }, 1000)
 }
 
-function reset(){
-  clearInterval(counter);
-  display.textContent = "0:00";
-  session.textContent = "Do it well, do it now.";
-}
 
 
 //View-------------------------------
@@ -55,9 +54,18 @@ function displayTimeLeft(timeLeft){
   document.title = info;
 }
 
+function displayStartStop(){
+  if (play.innerHTML == "Stop") {
+    play.innerHTML = "Start";
+    start=true;
+    } else {
+      play.getAttribute("Start", play.innerHTML);
+      play.innerHTML = "Stop";
+      start=false;
+    }
+}
 //Controller ------------------------------
-let play = document.getElementById("play");
-play.addEventListener("click", ()=>pomodoro());
 
-let redo = document.getElementById("redo");
-redo.addEventListener("click", ()=> reset());
+let play = document.getElementById("play");
+
+play.addEventListener("click", ()=>pomodoro());
