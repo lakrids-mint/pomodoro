@@ -39,8 +39,8 @@ function countdown(time, message, next){
     if(timeLeft<=0){
       clearInterval(counter);
       button=false;
-      audio.play();
-      setTimeout(next(), 4000);
+
+      next();
 
       return;
     }
@@ -81,6 +81,6 @@ function toggle(button){
   } else if(button ==false){
       play.innerHTML = "Start";
       container.setAttribute("class", "");
-
+      audio.play();
     }
 }
