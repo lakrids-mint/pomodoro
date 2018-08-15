@@ -1,22 +1,31 @@
 //Global variables
+//Displays the counter/timer
 const display = document.getElementById("countdown");
+//To display different text depending on timer/session status
 let session = document.getElementById("session");
+//saving the setInterval in order to use it in clearInterval
 let counter;
+//Holds the calculation of time left
 let timeLeft;
-let start = true;
+//if timer off = false, if on = true
+let button = false;
 
-//pomodoro
+let audio = document.getElementById("sound");
+let container = document.getElementById("container")
+//calls the countdown with the pomodoro pattern of 25 min. work, 5 min. pause
 function pomodoro(){
-  displayStartStop();
+
   countdown(5, "Work!!", ()=>countdown(3,"Pause!", ()=>
-    session.textContent = "Well done!"));
-  displayStartStop();
-}
+      toggle(button)))
+  toggle(button);
+  }
+
 
 //Model -----------------------------------
 function countdown(time, message, next){
   //clears any existing timers
   clearInterval(counter);
+  button=true;
   //debugger;
   let now = Date.now();
   let then = now + (time * 1000);
@@ -29,7 +38,10 @@ function countdown(time, message, next){
 
     if(timeLeft<=0){
       clearInterval(counter);
-      next();
+      button=false;
+      audio.play();
+      setTimeout(next(), 4000);
+
       return;
     }
   }, 1000)
@@ -54,18 +66,21 @@ function displayTimeLeft(timeLeft){
   document.title = info;
 }
 
-function displayStartStop(){
-  if (play.innerHTML == "Stop") {
-    play.innerHTML = "Start";
-    start=true;
-    } else {
-      play.getAttribute("Start", play.innerHTML);
-      play.innerHTML = "Stop";
-      start=false;
-    }
-}
+
 //Controller ------------------------------
 
 let play = document.getElementById("play");
 
 play.addEventListener("click", ()=>pomodoro());
+
+function toggle(button){
+  if (button == true) {
+    play.innerHTML = "Stop";
+    container.setAttribute("class", "back");
+
+  } else if(button ==false){
+      play.innerHTML = "Start";
+      container.setAttribute("class", "");
+
+    }
+}

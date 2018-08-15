@@ -3,6 +3,7 @@
 
 <head>
   <title>Pomodoro timer :D</title>
+  <meta charset="UTF-8">
 
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="skeleton.css">
@@ -14,7 +15,7 @@
 
   <div id="container">
     <h1>Pomodoro timer</h1>
-    <div id="timer">
+    <div id="timer" class="cir">
       <div id="countdown">
         25:00
       </div> <!-- ~end countdown -->
@@ -22,11 +23,10 @@
 
     <!-- work, pause? -->
     <div id="session"></div>
-
+    <audio id="sound" src="https://www.soundjay.com/human/sounds/applause-01.mp3"></audio>
     <!-- buttons -->
     <div id="controlpanel">
       <button id="play">Start</button>
-      <button id="redo">Reset</button>
     </div> <!-- ~end controlpanel -->
   </div> <!-- ~end container -->
 
