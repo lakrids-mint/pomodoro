@@ -1,32 +1,34 @@
-//Global variables
-//Displays the counter/timer
+//Globals
 const display = document.getElementById("countdown");
-//To display different text depending on timer/session status
 let session = document.getElementById("session");
-//saving the setInterval in order to use it in clearInterval
+//variable to hold setInterval in order to use it in clearInterval
 let counter;
 //Holds the calculation of time left
 let timeLeft;
+
 //if timer off = false, if on = true
-let button = false;
+let start = false;
 
 let audio = document.getElementById("sound");
 let container = document.getElementById("container")
+
+let play = document.getElementById("play");
+play.addEventListener("click", ()=>pomodoro());
+
+
 //calls the countdown with the pomodoro pattern of 25 min. work, 5 min. pause
 function pomodoro(){
-
   countdown(5, "Work!!", ()=>countdown(3,"Pause!", ()=>
-      toggle(button)))
-  toggle(button);
+      toggle(start)))
+  toggle(start);
   }
 
-
-//Model -----------------------------------
+// timer
 function countdown(time, message, next){
   //clears any existing timers
   clearInterval(counter);
-  button=true;
-  //debugger;
+
+  start=true;
   let now = Date.now();
   let then = now + (time * 1000);
   displayTimeLeft(time);
@@ -38,7 +40,7 @@ function countdown(time, message, next){
 
     if(timeLeft<=0){
       clearInterval(counter);
-      button=false;
+      start=false;
 
       next();
 
@@ -47,38 +49,29 @@ function countdown(time, message, next){
   }, 1000)
 }
 
-
-
-//View-------------------------------
-
+//Updates display-------------------------------
 //displays default time = 25 min
 display.textContent = 25+ ":"+0+0;
-
 // display session: "encouragement", work or pause
 session.textContent = "Do it well, do it now.";
+
 function displayTimeLeft(timeLeft){
+
   let min = Math.floor(timeLeft/60);
   let sec = Math.floor(timeLeft%60);
+
   // displays time nicely
   const info = min + ":" + (sec<10 ? "0"+sec :""+sec);
   display.textContent = info;
-  console.log(info);
   document.title = info;
 }
 
-
-//Controller ------------------------------
-
-let play = document.getElementById("play");
-
-play.addEventListener("click", ()=>pomodoro());
-
-function toggle(button){
-  if (button == true) {
+function toggle(start){
+  if (start == true) {
     play.innerHTML = "Stop";
     container.setAttribute("class", "back");
 
-  } else if(button ==false){
+  } else if(start ==false){
       play.innerHTML = "Start";
       container.setAttribute("class", "");
       audio.play();

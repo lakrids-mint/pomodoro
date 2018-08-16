@@ -19,15 +19,14 @@ h1{
   color: #00bcd4;
 }
 
-
 #session{
   grid-area: h3;
   text-align: center;
   color: #00bcd4;
   font-style: italic;
   font-size: 30px;
-
 }
+
 #timer {
   grid-area: timer;
   background-color: #00bcd4;
@@ -38,9 +37,8 @@ h1{
   display: flex;
   justify-content: center;
   align-items: center;
-
+  border: 5px solid white;
 }
-
 
 #countdown{
   color: #fff;
@@ -51,23 +49,21 @@ h1{
   grid-area:control;
   margin: auto;
 }
+
 button {
   background-color: white;
 }
-ul{
-  list-style: none;
-}
-.back {
 
+.back {
   width: 100%;
   height: 100%;
   background: #fffce9;
   animation-name: backdiv;
   animation-duration: 1s;
   animation-iteration-count:infinite;
-
   }
 
+/* not used
   .circle {
     position: absolute;
     margin: auto;
@@ -82,16 +78,17 @@ ul{
     animation-name: beat;
     animation-duration: 4s;
     animation-iteration-count:infinite;
-
-
   }
+*/
+
+/*Media queries*/
 @media screen and (max-width: 600px) {
   *{
     margin:0;
     padding: 0;
   }
-  #container{
 
+  #container{
     grid-template-areas:
       " h1 "
       " timer"
@@ -100,21 +97,25 @@ ul{
     grid-gap: 0;
     align-items: center;
   }
+
   #timer {
     height: 300px;
     width: 300px;
   }
+
   h1{
     margin-top: 0;
   }
-
 }
+
+/*Animation*/
 @keyframes backdiv {
   50% {
     background: #f2db93;
   }
 }
 
+/* not used*/
 @keyframes beat {
   0% {
     transform: scale(1);
